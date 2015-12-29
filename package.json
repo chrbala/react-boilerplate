@@ -42,6 +42,7 @@
     "react-dom": "0.14.3",
     "react-router": "1.0.3",
     "redux": "3.0.5",
+    "redux-simple-router": "1.0.2",
     "vinyl-source-stream": "1.1.0"
   },
   "engines": {
@@ -49,7 +50,7 @@
   },
   "aliasify": {
     "aliases": {
-    	"components": "./src/components",
+      "components": "./src/components",
       "shared": "./src/shared",
       "packages": "./src/packages",
       "store": "./src/store",
