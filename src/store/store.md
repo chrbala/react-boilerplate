@@ -1,0 +1,1 @@
+This directory is where the Redux actions and reducers are kept

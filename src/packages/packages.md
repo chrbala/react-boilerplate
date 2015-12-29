@@ -1,0 +1,1 @@
+Use this directory for js files that are not React components

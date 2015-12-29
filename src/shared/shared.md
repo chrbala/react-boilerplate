@@ -1,0 +1,1 @@
+Use this directory for components shared between multiple other components
