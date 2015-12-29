@@ -6,6 +6,7 @@
 	"scripts": {
 		"preinstall": "rm -rf ./app",
 		"postinstall": "gulp",
+		"watch": "gulp watch",
 		"gulp": "gulp",
 		"start": "node start",
 		"test": "echo \"Error: no test specified\" && exit 1"
