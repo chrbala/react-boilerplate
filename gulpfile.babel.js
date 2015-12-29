@@ -43,7 +43,8 @@ gulp.task('nodemon', () =>
 
 gulp.task('watch', ['nodemon'], () => {
 	liveReload.listen()
-	gulp.watch('src/routes/*', ['default'])
-	gulp.watch('src/shared/*', ['default'])
-	gulp.watch('src/store/*', ['default'])
+	gulp.watch('src/routes/**/*', ['default'])
+	gulp.watch('src/shared/**/*', ['default'])
+	gulp.watch('src/store/**/*', ['default'])
+	gulp.watch('src/packages/**/*', ['default'])
 })
