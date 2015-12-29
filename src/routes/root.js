@@ -1,4 +1,4 @@
-import render from 'shared/render'
+import render from 'packages/render'
 
 import App from './App'
 import Home from './Home'
