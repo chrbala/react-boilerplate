@@ -7,7 +7,7 @@ import nodemon from 'gulp-nodemon'
 import browserify from 'gulp-browserify'
 
 var bundle = {
-	src: 'src/components/**/root.js',
+	src: 'src/routes/**/root.js',
 	dest: 'app/'
 }
 
@@ -28,7 +28,7 @@ gulp.task('nodemon', () =>
 	nodemon({
 		script: 'start.js', 
 		ignore: [
-			"src/components",
+			"src/routes",
 			"src/shared",
 			"src/store",
 			"app/*",
@@ -43,7 +43,7 @@ gulp.task('nodemon', () =>
 
 gulp.task('watch', ['nodemon'], () => {
 	liveReload.listen()
-	gulp.watch('src/components/*', ['default'])
+	gulp.watch('src/routes/*', ['default'])
 	gulp.watch('src/shared/*', ['default'])
 	gulp.watch('src/store/*', ['default'])
 })

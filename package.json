@@ -36,10 +36,11 @@
     "gulp-plumber": "1.0.1",
     "gulp-rename": "1.2.2",
     "gulp-rimraf": "0.2.0",
-    "gulp-watchify": "0.5.0",
+    "history": "1.17.0",
     "parse-filepath": "0.6.3",
     "react": "0.14.3",
     "react-dom": "0.14.3",
+    "react-router": "1.0.3",
     "redux": "3.0.5",
     "vinyl-source-stream": "1.1.0"
   },
@@ -48,6 +49,7 @@
   },
   "aliasify": {
     "aliases": {
+    	"components": "./src/components",
       "shared": "./src/shared",
       "packages": "./src/packages",
       "store": "./src/store",

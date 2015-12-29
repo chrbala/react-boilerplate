@@ -1,0 +1,1 @@
+This file contains routes that require components from /src/components
