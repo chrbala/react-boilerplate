@@ -1,3 +1,5 @@
+import store from 'store'
+
 import setGlobals from 'shared/setGlobals'
 import render from 'shared/render'
 
