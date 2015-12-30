@@ -11,11 +11,15 @@ export default class Stage extends Component {
 	}
 
 	render() {
-		var { children } = this.props
+		var { children, width, height } = this.props
 		var { stage } = this
 
 		return (
-			<canvas ref={canvas => this.canvas = canvas}>
+			<canvas 
+				width={width}
+				height={height}
+				ref={canvas => this.canvas = canvas}
+			>
 				{stage && React.Children.map(children, child =>
 					React.cloneElement(child, { stage })
 				)}

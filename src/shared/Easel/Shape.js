@@ -12,6 +12,12 @@ export default class Shape extends Graphic {
 		stage.addChild(this.shape)
 	}
 
+	componentDidUpdate() {
+		var { x, y } = this.props
+		Object.assign(this.shape, {x, y})
+		this.shape.stage.update()
+	}
+
 	render() {
 		return <div />
 	}
