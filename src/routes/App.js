@@ -26,9 +26,7 @@ export default class App extends Component {
 						strokeColor="1" 
 						strokeStyle={[0, 0, 0]} 
 						fill={[255, 0, 0]}
-						x={x}
-						y={y}
-						geometry={[0, 0, 3]}
+						geometry={[x, y, 5]}
 					/>
 				</Stage>
 				<input 

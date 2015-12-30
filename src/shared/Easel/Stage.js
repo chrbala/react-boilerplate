@@ -1,13 +1,13 @@
 var { Graphics } = createjs
 
 export default class Stage extends Component {
-	componentDidUpdate() {
-		this.stage.update()
-	}
-
 	componentDidMount() {
 		this.stage = new createjs.Stage(this.canvas)
 		this.forceUpdate()
+	}
+
+	componentDidUpdate() {
+		this.stage.update()
 	}
 
 	render() {
