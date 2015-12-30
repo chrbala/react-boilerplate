@@ -18,4 +18,6 @@ export const initWithHistory = history => {
 	store = finalCreateStore(reducer)
 
 	syncReduxAndRouter(history, store)
+
+	return store
 }

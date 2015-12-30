@@ -1,8 +1,10 @@
+import { connect } from 'react-redux'
+
 import Game from 'shared/Game'
 import Stage from 'shared/Easel/Stage'
 import Circle from 'shared/Easel/Circle'
 
-export default class App extends Component {
+class App extends Component {
 	constructor() {
 		super()
 
@@ -17,7 +19,13 @@ export default class App extends Component {
 	}
 	
 	render() {
-		var { width, height } = this.props
+		var { 
+			width, 
+			height, 
+			keys: {
+				space
+			} 
+		} = this.props
 		var { x, y } = this.state
 
 		return (
@@ -25,9 +33,9 @@ export default class App extends Component {
 				<Game>
 					<Stage width={width} height={height} >
 						<Circle 
-							strokeStyle={[x / 20]} 
+							strokeStyle={[2]} 
 							strokeColor={[0, 0, 0]} 
-							fill={[255, 0, 0]}
+							fill={[space ? 255 : 0, 0, 0]}
 							x="100"
 							y="100"
 							geometry={[0, 0, x]}
@@ -51,3 +59,8 @@ App.defaultProps = {
 	width: 400,
 	height: 300
 }
+
+export default connect(state => { 
+	var keys = state.game.keys
+	return {keys}
+})(App)
