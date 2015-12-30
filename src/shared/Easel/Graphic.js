@@ -1,12 +1,17 @@
 var { Graphics } = createjs
 
 export default class Graphic extends Component {
-	constructor() {
-		super()
+	componentDidMount() {
+		var {
+			strokeColor,
+			strokeStyle,
+			fill
+		} = this.props
+
 		this.graphic = new Graphics()
-			.setStrokeStyle(1)
-			.beginStroke(createjs.Graphics.getRGB(0, 0, 0))
-			.beginFill(createjs.Graphics.getRGB(255, 0, 0))
+			.setStrokeStyle(strokeStyle)
+			.beginStroke(createjs.Graphics.getRGB(...strokeColor))
+			.beginFill(createjs.Graphics.getRGB(...fill))
 			.drawCircle(0, 0, 3)
 	}
 }

@@ -2,14 +2,12 @@ import Graphic from './Graphic'
 var { Shape: _Shape } = createjs
 
 export default class Shape extends Graphic {
-	constructor() {
-		super()
-		this.shape = new _Shape(this.graphic)
-		this.shape.x = 100
-		this.shape.y = 100
-	}
-
 	componentDidMount() {
+		super.componentDidMount()
+
+		var { x, y } = this.props
+		this.shape = Object.assign(new _Shape(this.graphic), {x, y})
+
 		var { stage } = this.props
 		stage.addChild(this.shape)
 	}
