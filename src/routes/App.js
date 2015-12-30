@@ -10,14 +10,24 @@ import Circle from 'shared/Easel/Circle'
 class App extends Animation {
 	constructor() {
 		super()
-		dispatch(actions.ball.init({x: 100, y: 100}))
+		dispatch(actions.ball.setCoordinates({x: 100, y: 100}))
 		dispatch(actions.ball.setSpeed(5))
-		this.count = 0
+		dispatch(actions.ball.setSize(5))
 	}
 
 	tick() {
-		var { keys } = this.props
+		var { 
+			keys, 
+			ball: {
+				size
+			} 
+		} = this.props
 		dispatch(actions.ball.move(keys))
+
+		if (keys.space)
+			dispatch(actions.ball.grow(1))
+		else if (size > 5)
+			dispatch(actions.ball.grow(-1))
 	}
 
 	render() {
@@ -29,33 +39,29 @@ class App extends Animation {
 			},
 			ball: {
 				x,
-				y
+				y,
+				size
 			}
 		} = this.props
 
 		return (
-			<Game width={width} height={height} >
+			<Game width={window.innerWidth} height={window.innerHeight} >
 				<Circle 
 					strokeStyle={[2]} 
 					strokeColor={[0, 0, 0]} 
 					fill={[space ? 255 : 0, 0, 0]}
 					x={x}
 					y={y}
-					geometry={[0, 0, 5]}
+					geometry={[0, 0, size]}
 				/>
 			</Game>
 		)
 	}
 }
 
-App.defaultProps = {
-	width: 400,
-	height: 300
-}
-
 export default connect(state => { 
 	var keys = state.game.keys
-	var ball = state.game.ball || {}
+	var ball = state.game.ball
 
 	return {keys, ball}
 })(App)
