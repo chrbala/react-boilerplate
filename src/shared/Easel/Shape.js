@@ -7,18 +7,18 @@ export default class Shape extends Graphic {
 		this.shape = new _Shape(this.graphic)
 	}
 
-	init() {
-		super.init()
-	}
-
-	componentDidMount() {
-		super.componentDidMount()
+	mount() {
+		super.mount()
 		var { stage } = this.props
 		stage.addChild(this.shape)
 	}
 
-	componentDidUpdate() {
-		super.componentDidUpdate()
+	init() {
+		super.init()
+	}
+
+	update() {
+		super.update()
 		var { x, y } = this.props
 		Object.assign(this.shape, {x, y})
 	}

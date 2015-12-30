@@ -5,17 +5,17 @@ export default class Circle extends Shape {
 		super()
 	}
 
+	mount() {
+		super.mount()
+	}
+
 	init() {
 		super.init()
 		var { geometry } = this.props
 		this.graphic.drawCircle(...geometry)
 	}
 
-	componentDidMount() {
-		super.componentDidMount()
-	}
-
-	componentDidUpdate() {
-		super.componentDidUpdate()
+	update() {
+		super.update()
 	}
 }

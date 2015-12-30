@@ -6,6 +6,10 @@ export default class Graphic extends Component {
 		this.graphic = new Graphics()
 	}
 
+	mount() {
+
+	}
+
 	init() {
 		var {
 			strokeColor,
@@ -19,13 +23,18 @@ export default class Graphic extends Component {
 			.beginFill(createjs.Graphics.getRGB(...fill))
 	}
 
+	update() {
+		this.graphic.clear()
+		this.init()
+	}
+
 	componentDidMount() {
+		this.mount()
 		this.init()
 	}
 
 	componentDidUpdate() {
-		this.graphic.clear()
-		this.init()
+		this.update()
 	}
 
 	render() {
