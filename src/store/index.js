@@ -1,16 +1,15 @@
 import { compose, createStore, combineReducers } from 'redux'
 import { syncReduxAndRouter, routeReducer } from 'redux-simple-router'
 
-import * as reducers from 'store/reducers'
+import reducers from 'store/reducers'
 
-var store = null
+export let store = null
 
 export const initWithHistory = history => {
-	var reducer = combineReducers(
-		...reducers, {
+	var reducer = combineReducers({
+			game: combineReducers(reducers),
 			routing: routeReducer
-		}
-	)
+	})
 
 	var finalCreateStore = compose(
 		window.devToolsExtension ? window.devToolsExtension() : f => f
@@ -20,5 +19,3 @@ export const initWithHistory = history => {
 
 	syncReduxAndRouter(history, store)
 }
-
-export default store
