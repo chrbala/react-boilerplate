@@ -23,10 +23,12 @@ export default class App extends Component {
 			<div>
 				<Stage width={width} height={height} >
 					<Circle 
-						strokeColor="1" 
-						strokeStyle={[0, 0, 0]} 
+						strokeStyle={[x]} 
+						strokeColor={[x, 0, 0]} 
 						fill={[255, 0, 0]}
-						geometry={[x, y, x]}
+						x="100"
+						y="100"
+						geometry={[0, 0, x]}
 					/>
 				</Stage>
 				<input 

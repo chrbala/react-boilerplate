@@ -18,7 +18,7 @@ export default class Graphic extends Component {
 		} = this.props
 
 		this.graphic
-			.setStrokeStyle(strokeStyle)
+			.setStrokeStyle(...strokeStyle)
 			.beginStroke(createjs.Graphics.getRGB(...strokeColor))
 			.beginFill(createjs.Graphics.getRGB(...fill))
 	}

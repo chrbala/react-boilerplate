@@ -15,11 +15,11 @@ export default class Shape extends Graphic {
 
 	init() {
 		super.init()
+		var { x, y } = this.props
+		Object.assign(this.shape, {x, y})
 	}
 
 	update() {
 		super.update()
-		var { x, y } = this.props
-		Object.assign(this.shape, {x, y})
 	}
 }
