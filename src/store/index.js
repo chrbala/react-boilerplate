@@ -3,7 +3,15 @@ import { syncReduxAndRouter, routeReducer } from 'redux-simple-router'
 
 import reducers from 'store/reducers'
 
-export let store = null
+var store
+
+export function getStore() {
+	return store
+}
+
+export function dispatch() {
+	return store.dispatch(...arguments)
+}
 
 export const initWithHistory = history => {
 	var reducer = combineReducers({
@@ -18,6 +26,4 @@ export const initWithHistory = history => {
 	store = finalCreateStore(reducer)
 
 	syncReduxAndRouter(history, store)
-
-	return store
 }

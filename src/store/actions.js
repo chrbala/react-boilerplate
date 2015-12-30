@@ -28,3 +28,9 @@ export const keys = generateActions([
 	'keydown',
 	'keyup'
 ], 'game/keys')
+
+export const ball = generateActions([
+	'init',
+	'setSpeed',
+	'move'
+], 'game/ball')

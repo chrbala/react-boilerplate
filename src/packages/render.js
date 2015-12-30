@@ -2,7 +2,7 @@ import { render } from 'react-dom'
 import { Router } from 'react-router'
 import { Provider } from 'react-redux'
 import createBrowserHistory from 'history/lib/createBrowserHistory'
-import { initWithHistory } from 'store'
+import { initWithHistory, getStore } from 'store'
 
 import setGlobals from 'packages/setGlobals'
 
@@ -13,7 +13,7 @@ export default routes => {
 	var store = initWithHistory(history)
 
 	render(
-		<Provider store={store}>
+		<Provider store={getStore()}>
 			<Router history={history} routes={routes} />
 		</Provider>,
 		document.body.appendChild(document.createElement("div"))

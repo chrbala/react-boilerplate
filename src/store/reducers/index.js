@@ -1,4 +1,5 @@
 import * as keys from './keys'
+import * as ball from './ball'
 
 function generateReducers(_reducers, _namespace) {
 	var reducers = {}
@@ -8,13 +9,10 @@ function generateReducers(_reducers, _namespace) {
 		let defaultState = _reducers[name].default || {}
 
 		reducers[name] = (state = defaultState, action) => {
-			var [ namespace, handlerName, type ] = action.type.split('/')
+			let [ namespace, handlerName, type ] = action.type.split('/')
 
 			if (namespace == _namespace && handlerName == name && reducer[type])
 				return reducer[type](state, action.payload)
-
-			if (namespace.charAt(0) != '@')
-				console.warn(namespace + '/' + handlerName + '/' + type + 'is not set')
 
 			return state
 		}
@@ -24,5 +22,6 @@ function generateReducers(_reducers, _namespace) {
 }
 
 export default generateReducers({
-	keys: { keys }
+	keys: { keys },
+	ball: { ball }
 }, "game")
