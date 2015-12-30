@@ -1,6 +1,8 @@
 import { store } from 'store'
 import * as actions from 'store/actions'
 
+import Stage from 'shared/Easel/Stage'
+
 export default class Game extends Component {
 	componentDidMount() {
 		window.onkeydown = e => store.dispatch(actions.keys.keydown(e))
@@ -8,11 +10,11 @@ export default class Game extends Component {
 	}
 
 	render() {
-		var { children } = this.props
+		var { children, ...rest } = this.props
 		return (
-			<div>
+			<Stage {...rest}>
 				{children}
-			</div>
+			</Stage>
 		)
 	}
 }

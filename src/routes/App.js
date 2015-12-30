@@ -29,28 +29,16 @@ class App extends Component {
 		var { x, y } = this.state
 
 		return (
-			<div>
-				<Game>
-					<Stage width={width} height={height} >
-						<Circle 
-							strokeStyle={[2]} 
-							strokeColor={[0, 0, 0]} 
-							fill={[space ? 255 : 0, 0, 0]}
-							x="100"
-							y="100"
-							geometry={[0, 0, x]}
-						/>
-					</Stage>
-				</Game>
-				<input 
-					type="range" 
-					onChange={::this.handleChange} 
-					name="points" 
-					min="0" 
-					value={x}
-					max={width} 
+			<Game width={width} height={height} >
+				<Circle 
+					strokeStyle={[2]} 
+					strokeColor={[0, 0, 0]} 
+					fill={[space ? 255 : 0, 0, 0]}
+					x="100"
+					y="100"
+					geometry={[0, 0, x]}
 				/>
-			</div>
+			</Game>
 		)
 	}
 }
