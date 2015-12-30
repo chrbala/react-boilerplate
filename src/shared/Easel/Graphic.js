@@ -14,4 +14,8 @@ export default class Graphic extends Component {
 			.beginFill(createjs.Graphics.getRGB(...fill))
 			.drawCircle(0, 0, 3)
 	}
+
+	render() {
+		return <div />
+	}
 }

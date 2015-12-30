@@ -1,5 +1,5 @@
 import Stage from 'shared/Easel/Stage'
-import Shape from 'shared/Easel/Shape'
+import Circle from 'shared/Easel/Circle'
 
 export default class App extends Component {
 	constructor() {
@@ -22,12 +22,13 @@ export default class App extends Component {
 		return (
 			<div>
 				<Stage width={width} height={height} >
-					<Shape 
+					<Circle 
 						strokeColor="1" 
 						strokeStyle={[0, 0, 0]} 
 						fill={[255, 0, 0]}
 						x={x}
 						y={y}
+						geometry={[0, 0, 3]}
 					/>
 				</Stage>
 				<input 
