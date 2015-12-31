@@ -1,18 +1,12 @@
 import * as actions from 'store/actions'
 import { dispatch } from 'store'
-import Physics from 'physics'
 
 import Circle from 'shared/Easel/Circle'
-import GameObject from 'shared/GameObject'
+import Particle from 'shared/Particle'
 
-export default class Player extends GameObject {
+export default class Player extends Particle {
 	componentWillMount() {
-		var { x, y, radius } = this.props
-
-		this.ball = Object.assign(
-			this.context.physics.makeParticle(5, Number(x), Number(y)), 
-			{radius}
-		)
+		super.componentWillMount()
 	}
 
 	render() {
@@ -22,12 +16,11 @@ export default class Player extends GameObject {
 			right = false,
 			z: isRunning = false
 		} = this.context.keys
-		var { ball } = this
 		var {
 			radius,
 			position,
 			velocity
-		} = ball
+		} = this.particle
 		var { innerWidth: width, innerHeight: height } = window
 		var [x, y] = [position.x, position.y]
 		var [velocityX, velocityY] = [velocity.x, velocity.y]
@@ -73,7 +66,7 @@ export default class Player extends GameObject {
 
 		// update position if it has changed
 		if (x != position.x || y != position.y)
-			ball.position.set(x, y)
+			position.set(x, y)
 
 		return (
 			<Circle 
@@ -86,10 +79,4 @@ export default class Player extends GameObject {
 			/>
 		)
 	}
-}
-
-Player.defaultProps = {
-	x: 100,
-	y: 100,
-	radius: 5
 }
