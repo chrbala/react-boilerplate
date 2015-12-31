@@ -30,9 +30,6 @@ export const keys = generateActions([
 ], 'game/keys')
 
 export const ball = generateActions([
-	'setCoordinates',
-	'setSpeed',
-	'move',
 	'setSize',
 	'grow'
 ], 'game/ball')

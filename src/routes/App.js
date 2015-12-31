@@ -2,47 +2,51 @@ import { connect } from 'react-redux'
 import * as actions from 'store/actions'
 import { dispatch } from 'store'
 
-import Animation from 'shared/Animation'
 import Game from 'shared/Game'
 import Stage from 'shared/Easel/Stage'
 import Circle from 'shared/Easel/Circle'
 
-class App extends Animation {
+import Physics from 'physics'
+
+class App extends Component {
 	constructor() {
 		super()
-		dispatch(actions.ball.setCoordinates({x: 100, y: 100}))
-		dispatch(actions.ball.setSpeed(5))
-		dispatch(actions.ball.setSize(5))
+
+		this.physics = new Physics(.1)
+		this.physics.onUpdate(::this.tick)
+	}
+
+	componentWillMount() {
+		this.ball = Object.assign(
+			this.physics.makeParticle(5, 100, 100), 
+			{radius: 5}
+		)
+
+		this.physics.toggle()
 	}
 
 	tick() {
-		var { 
-			keys, 
-			ball: {
-				size
-			} 
-		} = this.props
-		dispatch(actions.ball.move(keys))
+		var { ball } = this
+		var { radius } = ball
+		var { innerWidth: width, innerHeight: height } = window
 
-		if (keys.space)
-			dispatch(actions.ball.grow(1))
-		else if (size > 5)
-			dispatch(actions.ball.grow(-1))
+		if (ball.position.y > height + radius * 2)
+      ball.position.set(ball.position.x, -radius * 2)
+
+		this.forceUpdate()
 	}
 
 	render() {
+		var { space } = this.props.keys
 		var { 
-			width, 
-			height, 
-			keys: {
-				space
-			},
 			ball: {
-				x,
-				y,
-				size
+				position: {
+					x,
+					y
+				},
+				radius
 			}
-		} = this.props
+		} = this
 
 		return (
 			<Game width={window.innerWidth} height={window.innerHeight} >
@@ -52,7 +56,7 @@ class App extends Animation {
 					fill={[space ? 255 : 0, 0, 0]}
 					x={x}
 					y={y}
-					geometry={[0, 0, size]}
+					geometry={[0, 0, radius]}
 				/>
 			</Game>
 		)
