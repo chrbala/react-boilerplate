@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { dispatch } from 'store'
 import * as actions from 'store/actions'
 
-import Physics from 'physics'
+import Physics from 'physics/src/Physics'
 import Stage from 'shared/Easel/Stage'
 
 export default class Game extends Component {
@@ -14,8 +14,8 @@ export default class Game extends Component {
   }
 
 	componentWillMount() {
-		var { GRAVITY } = this.props
-		this.physics = new Physics(Number(GRAVITY))
+		var { GRAVITY, DRAG = .1 } = this.props
+		this.physics = new Physics(Number(GRAVITY), Number(DRAG))
 		this.physics.onUpdate(::this.forceUpdate)
 
 		window.onkeydown = e => dispatch(actions.keys.keydown(e))

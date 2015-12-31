@@ -1,4 +1,4 @@
-import Physics from 'physics'
+import Physics from 'physics/src/Physics'
 
 import GameObject from 'shared/GameObject'
 
