@@ -112,23 +112,6 @@
 	    2,
 	    "never"
 	  ],
-	  "id-length": [
-	    2,
-	    {
-	      "min": 2,
-	      "max": 25,
-	      "exceptions": [
-	        "e",
-	        "i",
-	        "j",
-	        "m",
-	        "f",
-	        "x",
-	        "y",
-	        "$"
-	      ]
-	    }
-	  ],
 	  "key-spacing": [
 	    2,
 	    {

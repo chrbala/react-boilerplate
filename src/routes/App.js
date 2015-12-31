@@ -7,8 +7,10 @@ import Game from 'shared/Game'
 
 import Circle from 'shared/Easel/Circle'
 
+import Physics from 'physics'
+
 var Context = props =>
-	<Game width={window.innerWidth} height={window.innerHeight} >
+	<Game width={window.innerWidth} height={window.innerHeight} GRAVITY="0" >
 		<App {...props} />
 	</Game>
 
@@ -21,14 +23,20 @@ class App extends GameObject {
 	}
 
 	render() {
-		var { space, left, right } = this.props.keys
+		var { 
+			space, 
+			left = false, 
+			right = false,
+			z: isRunning = false
+		} = this.props.keys
 		var { ball } = this
 		var {
 			radius,
 			position: {
 				x,
 				y
-			} 
+			},
+			velocity
 		} = ball
 		var { innerWidth: width, innerHeight: height } = window
 		var [startX, startY] = [x, y]
@@ -36,10 +44,18 @@ class App extends GameObject {
 		if (y > height + radius * 2)
 			y = -radius * 2
 
-		if (left)
-			x -= 1
-		if (right)
-			x += 1
+		var MAX = isRunning ? 10 : 5
+		var ACCELERATION = isRunning ? 1.4 : .7
+		var DECELERATION = isRunning ? .1 : .5
+
+		var atMaxVelocity = right && velocity.x >= MAX
+			|| left && velocity.x <= -MAX
+
+		if (atMaxVelocity) {}
+		else if (left || right)
+			velocity.addSelf(new Physics.Vector((right - left) * ACCELERATION))
+		else
+			velocity.set(velocity.x * DECELERATION, velocity.y)
 
 		if (x != startX || y != startY)
 			ball.position.set(x, y)
