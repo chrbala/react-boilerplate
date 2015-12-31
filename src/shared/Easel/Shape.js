@@ -9,8 +9,7 @@ export default class Shape extends Graphic {
 
 	mount() {
 		super.mount()
-		var { stage } = this.props
-		stage.addChild(this.shape)
+		this.context.stage.addChild(this.shape)
 	}
 
 	init() {

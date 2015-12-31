@@ -1,6 +1,7 @@
+import GameObject from 'shared/GameObject'
 var { Graphics } = createjs
 
-export default class Graphic extends Component {
+export default class Graphic extends GameObject {
 	constructor() {
 		super()
 		this.graphic = new Graphics()

@@ -10,6 +10,10 @@ export default class Stage extends Component {
 		this.stage.update()
 	}
 
+	getChildContext() {
+    return {stage: this.stage}
+  }
+
 	render() {
 		var { children, width, height } = this.props
 		var { stage } = this
@@ -21,11 +25,13 @@ export default class Stage extends Component {
 					height={height}
 					ref={canvas => this.canvas = canvas}
 				>
-					{stage && React.Children.map(children, child =>
-						React.cloneElement(child, { stage })
-					)}
+					{stage && children}
 				</canvas>
 			</div>
 		)
 	}
+}
+
+Stage.childContextTypes = {
+  stage: React.PropTypes.any
 }
