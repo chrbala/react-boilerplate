@@ -7,9 +7,11 @@ import GameObject from 'shared/GameObject'
 
 export default class Player extends GameObject {
 	componentWillMount() {
+		var { x, y, radius } = this.props
+
 		this.ball = Object.assign(
-			this.context.physics.makeParticle(5, 100, 100), 
-			{radius: 5}
+			this.context.physics.makeParticle(5, Number(x), Number(y)), 
+			{radius}
 		)
 	}
 
@@ -84,4 +86,10 @@ export default class Player extends GameObject {
 			/>
 		)
 	}
+}
+
+Player.defaultProps = {
+	x: 100,
+	y: 100,
+	radius: 5
 }
