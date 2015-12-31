@@ -1,5 +1,4 @@
 import * as keys from './keys'
-import * as ball from './ball'
 
 function generateReducers(_reducers, _namespace) {
 	var reducers = {}
@@ -22,6 +21,5 @@ function generateReducers(_reducers, _namespace) {
 }
 
 export default generateReducers({
-	keys: { keys },
-	ball: { ball }
+	keys: { keys }
 }, "game")

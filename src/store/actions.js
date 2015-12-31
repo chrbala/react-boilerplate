@@ -28,8 +28,3 @@ export const keys = generateActions([
 	'keydown',
 	'keyup'
 ], 'game/keys')
-
-export const ball = generateActions([
-	'setSize',
-	'grow'
-], 'game/ball')
