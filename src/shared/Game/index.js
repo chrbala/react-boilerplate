@@ -1,7 +1,5 @@
 import { connect } from 'react-redux'
-var { Ticker } = createjs
-var FRAMERATE = 60
-createjs.Ticker.framerate = FRAMERATE
+import MainLoop from 'mainloop.js'
 
 import { dispatch } from 'store'
 import * as actions from 'store/actions'
@@ -17,18 +15,24 @@ export default class Game extends World {
 		}
 	}
 
-	animate() {
-		requestAnimationFrame(() => {
-			requestAnimationFrame(::this.animate)
-			this.world.step(1 / 5)
-			this.forceUpdate()
-		})
+	start() {
+		MainLoop.setUpdate(() => this.world.step(1 / 20)).setDraw(() => this.forceUpdate()).start()
+	}
+
+	stop() {
+		MainLoop.stop()
 	}
 
 	componentDidMount() {
 		window.onkeydown = e => dispatch(actions.keys.keydown(e))
 		window.onkeyup = e => dispatch(actions.keys.keyup(e))
-		this.animate()
+		this.start()
+	}
+
+	componentWillUpdate() {
+		var { esc } = this.props.keys
+		if (esc)
+			this.stop()
 	}
 
 	render() {
