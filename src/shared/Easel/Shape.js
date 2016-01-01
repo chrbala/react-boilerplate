@@ -1,10 +1,10 @@
-import Graphic from './Graphic'
-var { Shape: _Shape } = createjs
+import Body from 'shared/p2/Body'
+var { Shape: _Shape, Graphics } = createjs
 
-export default class Shape extends Graphic {
+export default class Shape extends Body {
 	constructor() {
 		super()
-		this.shape = new _Shape(this.graphic)
+		this.shape = new _Shape()
 	}
 
 	mount() {
@@ -14,11 +14,24 @@ export default class Shape extends Graphic {
 
 	init() {
 		super.init()
-		var { x, y } = this.props
-		Object.assign(this.shape, {x, y})
+		var {
+			strokeColor,
+			strokeStyle,
+			fill
+		} = this.props
+
+		this.shape.graphics
+			.setStrokeStyle(...strokeStyle)
+			.beginStroke(Graphics.getRGB(...strokeColor))
+			.beginFill(Graphics.getRGB(...fill))
 	}
 
 	update() {
 		super.update()
 	}
+}
+
+Shape.contextTypes = {
+	...Body.contextTypes,
+  stage: React.PropTypes.any.isRequired
 }
