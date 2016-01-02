@@ -21,5 +21,5 @@ function generateReducers(_reducers, _namespace) {
 }
 
 export default generateReducers({
-	myReducer: { myReducer }
+	myReducer: { myReducer, default: true }
 }, "boilerplate")
