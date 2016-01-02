@@ -21,6 +21,7 @@ export default class Body extends Component {
 	componentDidMount() {
 		this.mount()
 		this.init()
+		this.update()
 	}
 
 	componentDidUpdate(prevProps) {

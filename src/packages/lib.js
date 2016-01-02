@@ -1,3 +1,7 @@
 export function toUnderscore(str) {
 	return str.replace(/([A-Z])/g, function($1){return "_"+$1}).toUpperCase()
 }
+
+export function getScale({width, scale}) {
+	return width / scale
+} 

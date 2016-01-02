@@ -1,4 +1,5 @@
 import p2 from 'p2'
+import { getScale } from 'packages/lib'
 
 import PhysicalShape from './PhysicalShape'
 
@@ -15,6 +16,8 @@ export default class Circle extends PhysicalShape {
 	init() {
 		super.init()
 		var { radius } = this.props
+		radius *= getScale(this.context.game)
+
 		this.shape.graphics.drawCircle(0, 0, radius)
 	}
 
@@ -28,5 +31,6 @@ export default class Circle extends PhysicalShape {
 }
 
 Circle.defaultProps = {
+	...PhysicalShape.defaultProps,
 	radius: 1
 }

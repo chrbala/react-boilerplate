@@ -3,12 +3,11 @@ import GameComponent from 'shared/game/GameComponent'
 
 export default class Player extends GameComponent {
 	componentWillUpdate() {
-		var { keys } = this.context
 		var { 
 			space, 
 			left = false, 
 			right = false
-		} = keys
+		} = this.context.game.keys
 		var { force, velocity } = this.circle.body
 
 		var direction = right - left
@@ -16,19 +15,18 @@ export default class Player extends GameComponent {
 		var X = 0
 		var Y = 1
 
-		if (space && velocity[Y] > 0)
-			velocity[Y] = 200 * -1
+		if (space && velocity[Y] < 0)
+			force[Y] = 700
 		if (direction && velocity[X] < MAX_VELOCITY)
-			force[X] += 100 * direction
+			force[X] = 10 * direction
 	}
 
 	render() {
-			var { keys } = this.context
 			var { 
 				space, 
 				left = false, 
 				right = false
-			} = keys
+			} = this.context.game.keys
 
 		return (
 			<Circle 

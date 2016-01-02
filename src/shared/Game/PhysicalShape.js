@@ -1,4 +1,5 @@
 import Shape from 'shared/Easel/Shape'
+import { getScale } from 'packages/lib'
 
 export default class PhysicalShape extends Shape {
 	constructor() {
@@ -17,6 +18,11 @@ export default class PhysicalShape extends Shape {
 		super.update()
 		var { shape, body } = this
 		var [ x, y ] = body.position
+		
+		var scale = getScale(this.context.game)
+		x *= scale
+		y *= scale * -1
+		y += this.context.game.height
 
 		shape.set({
 			x,
@@ -26,5 +32,11 @@ export default class PhysicalShape extends Shape {
 }
 
 PhysicalShape.defaultProps = {
+	...Shape.defaultProps,
 	radius: 1
+}
+
+PhysicalShape.contextTypes = {
+	...Shape.contextTypes,
+  game: React.PropTypes.any.isRequired
 }

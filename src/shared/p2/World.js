@@ -8,7 +8,7 @@ export default class World extends Component {
 	}
 
 	componentWillMount() {
-		this.world = new p2.World(this.props)
+		window.world = this.world = new p2.World(this.props)
 	}
 }
 

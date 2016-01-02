@@ -8,15 +8,21 @@ import World from 'shared/p2/World'
 import Stage from 'shared/Easel/Stage'
 
 export default class Game extends World {
+	constructor() {
+		super()
+		window.onkeydown = e => dispatch(actions.keys.keydown(e))
+		window.onkeyup = e => dispatch(actions.keys.keyup(e))
+	}
+
 	getChildContext() {
 		return {
 			...super.getChildContext(),
-			keys: this.props.keys
+			game: this.props
 		}
 	}
 
 	start() {
-		MainLoop.setUpdate(() => this.world.step(1 / 20)).setDraw(() => this.forceUpdate()).start()
+		MainLoop.setUpdate(() => this.world.step(1 / 60)).setDraw(() => this.forceUpdate()).start()
 	}
 
 	stop() {
@@ -24,9 +30,11 @@ export default class Game extends World {
 	}
 
 	componentDidMount() {
-		window.onkeydown = e => dispatch(actions.keys.keydown(e))
-		window.onkeyup = e => dispatch(actions.keys.keyup(e))
 		this.start()
+	}
+
+	componentWillUnmount() {
+		this.stop()
 	}
 
 	componentWillUpdate() {
@@ -47,7 +55,7 @@ export default class Game extends World {
 
 Game.childContextTypes = {
 	...World.childContextTypes,
-	keys: React.PropTypes.any.isRequired
+	game: React.PropTypes.any.isRequired
 }
 
 export default connect(state => { 
