@@ -15,7 +15,7 @@ export function dispatch() {
 
 export const initWithHistory = history => {
 	var reducer = combineReducers({
-			game: combineReducers(reducers),
+			app: combineReducers(reducers),
 			routing: routeReducer
 	})
 
