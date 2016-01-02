@@ -9,6 +9,10 @@ export function getStore() {
 	return store
 }
 
+export function getState() {
+	return store.getState(...arguments)
+}
+
 export function dispatch() {
 	return store.dispatch(...arguments)
 }

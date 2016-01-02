@@ -1,8 +1,8 @@
-import { getStore, dispatch } from 'store'
+import { getState, dispatch } from 'store'
 import value from 'store/actions/value'
 
 function reduxTest() {
-	var state = getStore().getState()
+	var state = getState()
 	var previousValue = state.app.value
 	dispatch(value.set(!previousValue))
 }
