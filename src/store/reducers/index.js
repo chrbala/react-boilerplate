@@ -1,20 +1,23 @@
 import * as myReducer from './myReducer'
 
-function generateReducers(_reducers, _namespace) {
+function generateReducer(_name, _namespace, defaultState) {
+	return (state = defaultState || {}, action) => {
+		var [ namespace, name, type ] = action.type.split('/')
+
+		if (namespace == _namespace && name == _name && reducer[type])
+			return reducer[type](state, action.payload)
+
+		return state
+	}
+}
+
+function generateReducers(_reducers, namespace) {
 	var reducers = {}
 
-	for (let name in _reducers) {
-		let reducer = _reducers[name][name]
-		let defaultState = _reducers[name].default || {}
-
-		reducers[name] = (state = defaultState, action) => {
-			let [ namespace, handlerName, type ] = action.type.split('/')
-
-			if (namespace == _namespace && handlerName == name && reducer[type])
-				return reducer[type](state, action.payload)
-
-			return state
-		}
+	for (var name in _reducers) {
+		var reducer = _reducers[name][name]
+		var defaultState = _reducers[name].default
+		reducers[name] = generateReducer(name, namespace, defaultState)
 	}
 	
 	return reducers
