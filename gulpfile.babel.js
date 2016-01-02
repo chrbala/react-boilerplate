@@ -5,6 +5,10 @@ import babelify from 'babelify'
 import liveReload from 'gulp-livereload'
 import nodemon from 'gulp-nodemon'
 import browserify from 'gulp-browserify'
+import envify from 'envify'
+
+import env from './env'
+Object.assign(process.env, env)
 
 var bundle = {
 	src: 'src/routes/**/root.js',
@@ -17,7 +21,8 @@ gulp.task('default', () =>
 		.pipe(browserify({
 			transform: [
 				babelify,
-				aliasify
+				aliasify,
+				envify
 			],
 			debug: true
 		}))
@@ -47,4 +52,6 @@ gulp.task('watch', ['nodemon'], () => {
 	gulp.watch('src/shared/**/*', ['default'])
 	gulp.watch('src/store/**/*', ['default'])
 	gulp.watch('src/packages/**/*', ['default'])
+	gulp.watch('env.json', ['default'])
+	gulp.watch('package.json', ['default'])
 })

@@ -3,6 +3,9 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import parsePath from 'parse-filepath'
 
+import env from '../../env'
+Object.assign(process.env, env)
+
 var app = express()
 app.set('port', (process.env.PORT || 5000))
 app.use(bodyParser.json())
