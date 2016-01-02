@@ -22,7 +22,7 @@ export default class Game extends World {
 	}
 
 	start() {
-		MainLoop.setUpdate(() => this.world.step(1 / 60)).setDraw(() => this.forceUpdate()).start()
+		MainLoop.setUpdate(() => this.world.step(1 / MainLoop.getFPS() * 2)).setDraw(() => this.forceUpdate()).start()
 	}
 
 	stop() {

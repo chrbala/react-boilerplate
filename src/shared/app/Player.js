@@ -16,7 +16,7 @@ export default class Player extends GameComponent {
 		var Y = 1
 
 		if (space && velocity[Y] < 0)
-			force[Y] = 700
+			force[Y] = 500
 		if (direction && velocity[X] < MAX_VELOCITY)
 			force[X] = 10 * direction
 	}
