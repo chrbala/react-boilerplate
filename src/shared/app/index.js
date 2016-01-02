@@ -4,8 +4,11 @@ import Rectangle from 'shared/Game/Rectangle'
 
 var EARTH_GRAVITY = -9.82
 
+var style = {margin: 0, padding: 0, overflow: 'hidden'}
+Object.assign(document.body.style, style)
+
 export default () =>
-	<Game width={window.innerWidth} height={window.innerHeight} scale={10} gravity={[0, EARTH_GRAVITY * 2]} >
+	<Game width={window.innerWidth} height={window.innerHeight} scale={10} gravity={[0, EARTH_GRAVITY]} >
 		<Player position={[8, 8]} radius={1} />
 		<Rectangle 
 			position={[0, 1]} 
