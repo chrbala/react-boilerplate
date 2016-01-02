@@ -27,9 +27,7 @@
     "babel-preset-react": "6.3.13",
     "babel-preset-stage-0": "6.3.13",
     "babelify": "7.2.0",
-    "bluebird": "3.1.1",
     "body-parser": "1.14.2",
-    "concurrently": "1.0.0",
     "envify": "3.4.0",
     "eslint": "1.10.3",
     "express": "4.13.3",
@@ -40,16 +38,13 @@
     "gulp-nodemon": "2.0.6",
     "gulp-plumber": "1.0.1",
     "gulp-rename": "1.2.2",
-    "gulp-rimraf": "0.2.0",
     "history": "1.17.0",
-    "parse-filepath": "0.6.3",
-    "react": "0.14.3",
-    "react-dom": "0.14.3",
+    "react": "0.14.5",
+    "react-dom": "0.14.5",
     "react-redux": "4.0.6",
     "react-router": "1.0.3",
     "redux": "3.0.5",
-    "redux-simple-router": "1.0.2",
-    "vinyl-source-stream": "1.1.0"
+    "redux-simple-router": "1.0.2"
   },
   "engines": {
     "node": "4.2.1"
