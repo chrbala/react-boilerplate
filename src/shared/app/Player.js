@@ -1,5 +1,5 @@
-import Circle from 'shared/game/Circle'
-import GameComponent from 'shared/game/GameComponent'
+import Circle from 'shared/Game/Circle'
+import GameComponent from 'shared/Game/GameComponent'
 
 export default class Player extends GameComponent {
 	componentWillUpdate() {
