@@ -2,8 +2,10 @@ import path from 'path'
 import express from 'express'
 import bodyParser from 'body-parser'
 
-import env from '../../env'
-Object.assign(process.env, env)
+try {
+	var env = require('../../env')
+	Object.assign(process.env, env)
+} catch (e) {}
 
 var app = express()
 app.set('port', (process.env.PORT || 5000))
