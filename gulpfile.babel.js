@@ -1,3 +1,4 @@
+import { readFileSync } from 'fs'
 import gulp from 'gulp'
 import plumber from 'gulp-plumber'
 import aliasify from 'aliasify'
@@ -6,28 +7,38 @@ import livereload from 'gulp-livereload'
 import nodemon from 'gulp-nodemon'
 import browserify from 'gulp-browserify'
 import envify from 'envify'
+import uglify from 'gulp-uglify'
+import gulpif from 'gulp-if'
 
-import env from './env'
-Object.assign(process.env, env)
+var env = Object.assign({}, process.env)
 
 var bundle = {
 	src: 'src/routes/**/root.js',
 	dest: 'app/'
 }
 
-gulp.task('default', () =>
-	gulp.src(bundle.src, {read: false})
-		.pipe(plumber())
+gulp.task('default', () => {
+	try {
+		var _env = JSON.parse(readFileSync('./env.json', 'utf8'))
+		process.env = Object.assign({}, env, _env)
+	} catch (e) {
+		console.log('env.json not found')
+	}
+
+	return gulp.src(bundle.src, {read: false})
+		.pipe(gulpif(process.env.DEV, plumber()))
 		.pipe(browserify({
 			transform: [
 				babelify,
 				aliasify,
 				envify
 			],
-			debug: true
+			insertGlobals: !process.env.DEV,
+			debug: !!process.env.DEV
 		}))
+		.pipe(gulpif(!!process.env.PRODUCTION, uglify({mangle: {toplevel: true}})))
 		.pipe(gulp.dest(bundle.dest))
-)
+})
 
 gulp.task('nodemon', () =>
 	nodemon({
