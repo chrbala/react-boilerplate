@@ -16,7 +16,7 @@ export default class Circle extends PhysicalShape {
 	init() {
 		super.init()
 		var { radius } = this.props
-		radius *= getScale(this.context.game)
+		radius *= getScale(this.context.app)
 
 		this.shape.graphics.drawCircle(0, 0, radius)
 	}

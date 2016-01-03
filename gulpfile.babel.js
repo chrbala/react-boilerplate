@@ -2,9 +2,13 @@ import gulp from 'gulp'
 import plumber from 'gulp-plumber'
 import aliasify from 'aliasify'
 import babelify from 'babelify'
-import liveReload from 'gulp-livereload'
+import livereload from 'gulp-livereload'
 import nodemon from 'gulp-nodemon'
 import browserify from 'gulp-browserify'
+import envify from 'envify'
+
+import env from './env'
+Object.assign(process.env, env)
 
 var bundle = {
 	src: 'src/routes/**/root.js',
@@ -17,7 +21,8 @@ gulp.task('default', () =>
 		.pipe(browserify({
 			transform: [
 				babelify,
-				aliasify
+				aliasify,
+				envify
 			],
 			debug: true
 		}))
@@ -41,10 +46,17 @@ gulp.task('nodemon', () =>
 	})
 )
 
+gulp.task('reload', ['default'], () => {
+	gulp.src('app/**/*')
+		.pipe(livereload())
+})
+
 gulp.task('watch', ['nodemon'], () => {
-	liveReload.listen()
-	gulp.watch('src/routes/**/*', ['default'])
-	gulp.watch('src/shared/**/*', ['default'])
-	gulp.watch('src/store/**/*', ['default'])
-	gulp.watch('src/packages/**/*', ['default'])
+	livereload.listen()
+	gulp.watch('src/routes/**/*', ['reload'])
+	gulp.watch('src/shared/**/*', ['reload'])
+	gulp.watch('src/store/**/*', ['reload'])
+	gulp.watch('src/packages/**/*', ['reload'])
+	gulp.watch('env.json', ['reload'])
+	gulp.watch('package.json', ['reload'])
 })

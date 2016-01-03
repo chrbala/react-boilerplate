@@ -1,6 +1,6 @@
 import * as lib from 'packages/lib'
 
-function generateActions(actions, namespace) {
+export default (actions, namespace) => {
 	var out = {}
 	namespace = namespace ? namespace + '/' : ''
 
@@ -23,8 +23,3 @@ function generateActions(actions, namespace) {
 
 	return out
 }
-
-export const keys = generateActions([
-	'keydown',
-	'keyup'
-], 'game/keys')

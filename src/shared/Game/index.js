@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import MainLoop from 'mainloop.js'
 
 import { dispatch } from 'store'
-import * as actions from 'store/actions'
+import Keys from 'store/actions/keys'
 
 import World from 'shared/p2/World'
 import Stage from 'shared/Easel/Stage'
@@ -10,14 +10,14 @@ import Stage from 'shared/Easel/Stage'
 export default class Game extends World {
 	constructor() {
 		super()
-		window.onkeydown = e => dispatch(actions.keys.keydown(e))
-		window.onkeyup = e => dispatch(actions.keys.keyup(e))
+		window.onkeydown = e => dispatch(Keys.keydown(e))
+		window.onkeyup = e => dispatch(Keys.keyup(e))
 	}
 
 	getChildContext() {
 		return {
 			...super.getChildContext(),
-			game: this.props
+			app: this.props
 		}
 	}
 
@@ -55,10 +55,10 @@ export default class Game extends World {
 
 Game.childContextTypes = {
 	...World.childContextTypes,
-	game: React.PropTypes.any.isRequired
+	app: React.PropTypes.any.isRequired
 }
 
-export default connect(state => { 
-	var keys = state.game.keys
+export default connect(state => {
+	var keys = state.app.keys
 	return {keys}
 })(Game)

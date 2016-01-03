@@ -19,10 +19,10 @@ export default class PhysicalShape extends Shape {
 		var { shape, body } = this
 		var [ x, y ] = body.position
 		
-		var scale = getScale(this.context.game)
+		var scale = getScale(this.context.app)
 		x *= scale
 		y *= scale * -1
-		y += this.context.game.height
+		y += this.context.app.height
 
 		shape.set({
 			x,
@@ -38,5 +38,5 @@ PhysicalShape.defaultProps = {
 
 PhysicalShape.contextTypes = {
 	...Shape.contextTypes,
-  game: React.PropTypes.any.isRequired
+  app: React.PropTypes.any.isRequired
 }

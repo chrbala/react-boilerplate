@@ -9,13 +9,17 @@ export function getStore() {
 	return store
 }
 
+export function getState() {
+	return store.getState(...arguments)
+}
+
 export function dispatch() {
 	return store.dispatch(...arguments)
 }
 
 export const initWithHistory = history => {
 	var reducer = combineReducers({
-			game: combineReducers(reducers),
+			app: combineReducers(reducers),
 			routing: routeReducer
 	})
 

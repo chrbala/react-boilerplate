@@ -7,7 +7,7 @@ export default class Player extends GameComponent {
 			space, 
 			left = false, 
 			right = false
-		} = this.context.game.keys
+		} = this.context.app.keys
 		var { force, velocity } = this.circle.body
 
 		var direction = right - left
@@ -26,7 +26,7 @@ export default class Player extends GameComponent {
 				space, 
 				left = false, 
 				right = false
-			} = this.context.game.keys
+			} = this.context.app.keys
 
 		return (
 			<Circle 

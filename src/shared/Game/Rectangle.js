@@ -11,7 +11,7 @@ export default class Rectangle extends PhysicalShape {
 	mount() {
 		super.mount()
 		var { position: [x, y], position: lowerBound, width, height } = this.props
-		var scale = getScale(this.context.game)
+		var scale = getScale(this.context.app)
 		x *= scale
 		y *= scale
 		width *= scale
@@ -25,7 +25,7 @@ export default class Rectangle extends PhysicalShape {
 	init() {
 		super.init()
 		var { width, height } = this.props
-		var scale = getScale(this.context.game)
+		var scale = getScale(this.context.app)
 		width *= scale
 		height *= scale
 		
