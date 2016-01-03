@@ -7,8 +7,10 @@ import nodemon from 'gulp-nodemon'
 import browserify from 'gulp-browserify'
 import envify from 'envify'
 
-import env from './env'
-Object.assign(process.env, env)
+try {
+	var env = require('../../env')
+	Object.assign(process.env, env)
+} catch (e) {}
 
 var bundle = {
 	src: 'src/routes/**/root.js',
