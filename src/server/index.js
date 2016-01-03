@@ -5,7 +5,9 @@ import bodyParser from 'body-parser'
 try {
 	var env = require('../../env')
 	Object.assign(process.env, env)
-} catch (e) {}
+} catch (e) {
+	console.log('env.json not found')
+}
 
 var app = express()
 app.set('port', (process.env.PORT || 5000))
