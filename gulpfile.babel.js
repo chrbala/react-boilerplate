@@ -16,13 +16,14 @@ import source from 'vinyl-source-stream'
 var env = Object.assign({}, process.env)
 
 var bundle = {
-	entries: ['src/routes/root.js'],
-	dest: 'app/'
+	root: 'src/routes/root.js',
+	dest: 'app/',
+	name: 'bundle.js'
 }
 
-var watchify = entries => {
+var watchify = (entry, name) => {
 	var args = Object.assign({}, _watchify.args, {
-		entries,
+		entries: [entry],
 		transform: [
 			babelify,
 			aliasify,
@@ -34,7 +35,7 @@ var watchify = entries => {
 
 	return _watchify(browserify(args)).bundle()
 		.on('error', e => gutil.log(gutil.colors.red('ERROR:'), e.message))
-		.pipe(source('root.js'))
+		.pipe(source(name))
 }
 
 gulp.task('default', () => {
@@ -45,7 +46,7 @@ gulp.task('default', () => {
 		console.log('env.json not found')
 	}
 
-	return watchify(bundle.entries)
+	return watchify(bundle.root, bundle.name)
 		.pipe(gulpif(process.env.DEV, plumber()))
 		.pipe(gulpif(!!process.env.PRODUCTION, uglify({mangle: {toplevel: true}})))
 		.pipe(gulp.dest(bundle.dest))
