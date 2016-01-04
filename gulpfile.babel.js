@@ -5,7 +5,7 @@ import aliasify from 'aliasify'
 import babelify from 'babelify'
 import livereload from 'gulp-livereload'
 import nodemon from 'gulp-nodemon'
-import browserify from 'browserify'
+import _browserify from 'browserify'
 import _watchify from 'watchify'
 import envify from 'envify'
 import uglify from 'gulp-uglify'
@@ -15,13 +15,17 @@ import source from 'vinyl-source-stream'
 
 var env = Object.assign({}, process.env)
 
-var bundle = {
+var options = {
 	root: 'src/routes/root.js',
 	dest: 'app/',
 	name: 'bundle.js'
 }
 
-var watchify = (entry, name) => {
+var watch = false
+
+var logError = e => gutil.log(gutil.colors.red('ERROR:'), e.message)
+
+var browserify = (entry, name) => {
 	var args = Object.assign({}, _watchify.args, {
 		entries: [entry],
 		transform: [
@@ -33,8 +37,16 @@ var watchify = (entry, name) => {
 		debug: !!process.env.DEV
 	})
 
-	return _watchify(browserify(args)).bundle()
-		.on('error', e => gutil.log(gutil.colors.red('ERROR:'), e.message))
+	return _browserify(args)
+}
+
+var watchify = (entry, name) =>
+	_watchify(browserify(entry, name))
+
+var bundle = (entry, name) => {
+	var src = watch ? watchify : browserify
+	return src(entry, name).bundle()
+		.on('error', logError)
 		.pipe(source(name))
 }
 
@@ -43,13 +55,13 @@ gulp.task('default', () => {
 		var _env = JSON.parse(readFileSync('./env.json', 'utf8'))
 		process.env = Object.assign({}, env, _env)
 	} catch (e) {
-		console.log('env.json not found')
+		logError(new Error('env.json not found'))
 	}
 
-	return watchify(bundle.root, bundle.name)
-		.pipe(gulpif(process.env.DEV, plumber()))
+	return bundle(options.root, options.name)
+		.pipe(gulpif(!!process.env.DEV, plumber()))
 		.pipe(gulpif(!!process.env.PRODUCTION, uglify({mangle: {toplevel: true}})))
-		.pipe(gulp.dest(bundle.dest))
+		.pipe(gulp.dest(options.dest))
 })
 
 gulp.task('nodemon', () =>
@@ -75,6 +87,7 @@ gulp.task('reload', ['default'], () => {
 })
 
 gulp.task('watch', ['nodemon'], () => {
+	watch = true
 	livereload.listen()
 	gulp.watch('src/routes/**/*', ['reload'])
 	gulp.watch('src/shared/**/*', ['reload'])
