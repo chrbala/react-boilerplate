@@ -12,12 +12,13 @@ import uglify from 'gulp-uglify'
 import gulpif from 'gulp-if'
 import gutil from 'gulp-util'
 import source from 'vinyl-source-stream'
+import path from 'path'
 
 var env = Object.assign({}, process.env)
 
 var options = {
 	root: 'src/routes/root.js',
-	dest: 'app/',
+	dest: path.join(__dirname, './app'),
 	name: 'bundle.js'
 }
 
