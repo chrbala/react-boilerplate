@@ -12,13 +12,13 @@ import uglify from 'gulp-uglify'
 import gulpif from 'gulp-if'
 import gutil from 'gulp-util'
 import source from 'vinyl-source-stream'
-import path from 'path'
+import streamify from 'gulp-streamify'
 
 var env = Object.assign({}, process.env)
 
 var options = {
 	root: 'src/routes/root.js',
-	dest: path.join(__dirname, './app'),
+	dest: './app',
 	name: 'bundle.js'
 }
 
@@ -61,7 +61,8 @@ gulp.task('default', () => {
 
 	return bundle(options.root, options.name)
 		.pipe(gulpif(!!process.env.DEV, plumber()))
-		.pipe(gulpif(!!process.env.PRODUCTION, uglify({mangle: {toplevel: true}})))
+		.pipe(gulpif(!!process.env.PRODUCTION, 
+			streamify(uglify({mangle: {toplevel: true}}))))
 		.pipe(gulp.dest(options.dest))
 })
 
