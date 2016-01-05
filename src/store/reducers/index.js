@@ -1,7 +1,7 @@
 import generateReducers from './generateReducers'
 
-import * as keys from './keys'
+import * as value from './value'
 
 export default generateReducers({
-	keys: { keys }
+	value: { value, default: true }
 }, "app")

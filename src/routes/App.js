@@ -1,8 +1,20 @@
-import Game from 'shared/Game'
-import Player from './Player'
+import { getState, dispatch } from 'store'
+import value from 'store/actions/value'
 
-export default () =>
-	<Game width={window.innerWidth} height={window.innerHeight} GRAVITY="0" >
-		<Player x="100" y="100" radius="5" />
-		<Player x="150" y="150" radius="15" />
-	</Game>
+function reduxTest() {
+	var state = getState()
+	var previousValue = state.app.value
+	dispatch(value.set(!previousValue))
+}
+
+const App = ({children}) => 
+	<div>
+		<h1>App</h1>
+		<Link to='/'>Home</Link>
+		<Link to='about'>About</Link>
+		<Link to='404'>No Route</Link>
+		<button onClick={reduxTest}>Test</button>
+		{children}
+	</div>
+
+export default App
