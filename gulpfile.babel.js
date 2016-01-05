@@ -7,14 +7,26 @@ import livereload from 'gulp-livereload'
 import nodemon from 'gulp-nodemon'
 import _browserify from 'browserify'
 import _watchify from 'watchify'
-import envify from 'envify'
+import _envify from 'envify/custom'
 import uglify from 'gulp-uglify'
 import gulpif from 'gulp-if'
 import gutil from 'gulp-util'
 import source from 'vinyl-source-stream'
 import streamify from 'gulp-streamify'
 
-var env = Object.assign({}, process.env)
+var envify = () => {
+	var env
+
+	try {
+		env = JSON.parse(readFileSync('./env.json', 'utf8'))
+		for (var key in env)
+			env[key] = String(env[key])
+	} catch (e) {
+		logError(new Error('env.json not found'))
+	}
+
+	return _envify({...process.env, ...env})
+}
 
 var options = {
 	root: 'src/routes/root.js',
@@ -32,7 +44,7 @@ var browserify = (entry, name) => {
 		transform: [
 			babelify,
 			aliasify,
-			envify
+			envify()
 		],
 		insertGlobals: !process.env.DEV,
 		debug: !!process.env.DEV
@@ -51,20 +63,13 @@ var bundle = (entry, name) => {
 		.pipe(source(name))
 }
 
-gulp.task('default', () => {
-	try {
-		var _env = JSON.parse(readFileSync('./env.json', 'utf8'))
-		process.env = Object.assign({}, env, _env)
-	} catch (e) {
-		logError(new Error('env.json not found'))
-	}
-
-	return bundle(options.root, options.name)
+gulp.task('default', () =>
+	bundle(options.root, options.name)
 		.pipe(gulpif(!!process.env.DEV, plumber()))
 		.pipe(gulpif(!!process.env.PRODUCTION, 
 			streamify(uglify({mangle: {toplevel: true}}))))
 		.pipe(gulp.dest(options.dest))
-})
+)
 
 gulp.task('nodemon', () =>
 	nodemon({
@@ -91,10 +96,11 @@ gulp.task('reload', ['default'], () => {
 gulp.task('watch', ['nodemon'], () => {
 	watch = true
 	livereload.listen()
+
+	// changes to env.json must be manually updated by restarting gulp watch
 	gulp.watch('src/routes/**/*', ['reload'])
 	gulp.watch('src/shared/**/*', ['reload'])
 	gulp.watch('src/store/**/*', ['reload'])
 	gulp.watch('src/packages/**/*', ['reload'])
-	gulp.watch('env.json', ['reload'])
 	gulp.watch('package.json', ['reload'])
 })
