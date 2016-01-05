@@ -97,10 +97,10 @@ gulp.task('watch', ['nodemon'], () => {
 	watch = true
 	livereload.listen()
 
-	// changes to env.json must be manually updated by restarting gulp watch
+	// changes to env.json and package.json must be
+	// manually updated by restarting gulp watch
 	gulp.watch('src/routes/**/*', ['reload'])
 	gulp.watch('src/shared/**/*', ['reload'])
 	gulp.watch('src/store/**/*', ['reload'])
 	gulp.watch('src/packages/**/*', ['reload'])
-	gulp.watch('package.json', ['reload'])
 })
