@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use('/', express.static(path.join(__dirname, '../../app')))
 
 app.get('*', (req, res) => {
-  res.send('<!DOCTYPE html><body><script src="/bundle.js"></script></body>')
+	res.send('<!DOCTYPE html><body><script src="/bundle.js"></script></body>')
 })
 
 app.listen(app.get('port'), () => {

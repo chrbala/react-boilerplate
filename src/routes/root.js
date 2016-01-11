@@ -7,10 +7,10 @@ import NoMatch from 'shared/NoMatch'
 
 const routes = (
 	<Route path="/" component={App}>
-    <IndexRoute component={Home} />
-    <Route path="/about" component={About} />
-    <Route path="*" component={NoMatch}/>
-  </Route>
+		<IndexRoute component={Home} />
+		<Route path="/about" component={About} />
+		<Route path="*" component={NoMatch}/>
+	</Route>
 )
 
 render(routes)
